@@ -8,7 +8,7 @@ import android.widget.Button;
 
 public class CoursActivity extends AppCompatActivity {
     private TextToSpeech textToSpeech;
-    private boolean isPaused = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,8 +17,7 @@ public class CoursActivity extends AppCompatActivity {
         buttonPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isPaused==true){
-                    isPaused = false;
+                if (!textToSpeech.isSpeaking()){
                 textToSpeech.speak("a nutrition est l'étude des aliments et des nutriments qui les composent, et de la manière dont ils affectent notre santé. Il existe différents groupes alimentaires, chacun offrant des nutriments clés pour notre corps. La viande est un groupe d'aliments important pour fournir des protéines, qui sont essentielles pour la croissance et la réparation des tissus corporels. D'autres sources de protéines incluent les légumineuses, les noix et les graines.\\n\" +\n" +
                         "                            \"\\n\" +\n" +
                         "                            \"Les produits laitiers sont une excellente source de calcium, un minéral important pour la construction et l'entretien des os et des dents. Les produits laitiers comprennent le lait, le fromage et le yaourt. Les personnes qui ne consomment pas de produits laitiers peuvent obtenir du calcium à partir d'autres sources telles que les légumes verts, les noix et les graines.\\n\" +\n" +
@@ -39,7 +38,7 @@ public class CoursActivity extends AppCompatActivity {
             }else {
                    // textToSpeech.playSilence(1000, TextToSpeech.QUEUE_FLUSH, null);
                     textToSpeech.stop();
-                    isPaused = true;
+
                 }
             }
         });
