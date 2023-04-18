@@ -1,7 +1,15 @@
 package com.example.gestionprofil;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +29,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private Button mAnswerButton4;
     private int mRemainingQuestionCount;
     private QuestionBank mQuestionBank;
+    private NotificationManager mNotificationManager;
+    private Notification mNotification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +45,28 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mAnswerButton2 = findViewById(R.id.game_activity_button_2);
         mAnswerButton3 = findViewById(R.id.game_activity_button_3);
         mAnswerButton4 = findViewById(R.id.game_activity_button_4);
-// Use the same listener for the four buttons.
-// The view id value will be used to distinguish the button triggered
+
         mAnswerButton1.setOnClickListener(this);
         mAnswerButton2.setOnClickListener(this);
         mAnswerButton3.setOnClickListener(this);
         mAnswerButton4.setOnClickListener(this);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("game.notification", "finishedGameNotification", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setLightColor(Color.BLUE);
+
+            mNotificationManager = getSystemService(NotificationManager.class);
+            assert mNotificationManager != null;
+            mNotificationManager.createNotificationChannel(channel);
+            NotificationCompat.Builder builder =  new NotificationCompat.Builder(this, "game.notification");
+            mNotification = builder.setOngoing(true)
+                    .setSmallIcon(R.drawable.ic_launcher_background)
+                    .setContentTitle("Game Ended")
+                    .setContentText("You have finished the game")
+                    .setPriority(NotificationManager.IMPORTANCE_HIGH)
+                    .setCategory(Notification.CATEGORY_SERVICE)
+                    .build();
+        }
 
         displayQuestion(mQuestionBank);
     }
@@ -168,7 +194,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
     private void displayQuestion(QuestionBank questionBank) {
         if (!(questionBank.getmNextQuestionIndex() ==  questionBank.getmQuestionList().size())) {
-            Toast.makeText(this, "INDEX" + questionBank.getmNextQuestionIndex(), Toast.LENGTH_SHORT).show();
             Question question = questionBank.getQuestion(questionBank.getmNextQuestionIndex());
             game_activity_textview_question.setText(question.getQuestion());
             mAnswerButton1.setText(question.getmChoiceList().get(0));
@@ -177,6 +202,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             mAnswerButton4.setText(question.getmChoiceList().get(3));
         } else {
             Toast.makeText(this, "Vous avez terminé le jeu", Toast.LENGTH_SHORT).show();
+            mNotificationManager.notify(0, mNotification);
             finish();
         }
     }
