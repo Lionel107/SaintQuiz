@@ -20,6 +20,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private Button mAnswerButton3 ;
     private Button mAnswerButton4;
     private int mRemainingQuestionCount;
+    private QuestionBank mQuestionBank;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mRemainingQuestionCount = 4;
         game_activity_textview_question = findViewById(R.id.game_activity_textview_question);
 
+        mQuestionBank = this.generateQuestions();
 
         mAnswerButton1 = findViewById(R.id.game_activity_button_1);
         mAnswerButton2 = findViewById(R.id.game_activity_button_2);
@@ -40,10 +42,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mAnswerButton3.setOnClickListener(this);
         mAnswerButton4.setOnClickListener(this);
 
-
+        displayQuestion(mQuestionBank);
     }
 
-    private QuestionBank ListeQuestion() {
+    private QuestionBank generateQuestions() {
         Question question1 = new Question(
                 "Quel est le groupe d'aliments qui est une source importante de protéines?",
                 Arrays.asList(
@@ -164,8 +166,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         );
         return new QuestionBank(Arrays.asList(question1, question2, question3, question4, question5, question6, question7, question8, question9, question10));
     }
-    private void displayQuestion(final Question question) {
-// Set the text for the question text view and the four buttons
+    private void displayQuestion(QuestionBank questionBank) {
+        Question question = questionBank.getNextQuestion();
         game_activity_textview_question.setText(question.getQuestion());
         mAnswerButton1.setText(question.getmChoiceList().get(0));
         mAnswerButton2.setText(question.getmChoiceList().get(1));
@@ -187,14 +189,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             throw new IllegalStateException("Unknown clicked view : " + view);
         }
-        if (index == ListeQuestion().getNextQuestion().getAnswerIndex()){
+
+        if (index == mQuestionBank.getNextQuestion().getAnswerIndex()){
             Toast.makeText(this, "Bonne réponse", Toast.LENGTH_SHORT).show();
+            displayQuestion(mQuestionBank);
         }else {
             Toast.makeText(this, "Mauvaise réponse", Toast.LENGTH_SHORT).show();
+            displayQuestion(mQuestionBank);
         }
-
-       // ListeQuestion().getNextQuestion();
-
     }
 
 }

@@ -11,6 +11,6 @@ public class QuestionBank {
     }
     public Question getNextQuestion() {
 
-        return mQuestionList.get(mNextQuestionIndex++);
+        return mNextQuestionIndex < mQuestionList.size() ? mQuestionList.get(mNextQuestionIndex++) : null;
     }
 }
