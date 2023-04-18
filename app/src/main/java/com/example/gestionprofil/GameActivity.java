@@ -167,12 +167,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         return new QuestionBank(Arrays.asList(question1, question2, question3, question4, question5, question6, question7, question8, question9, question10));
     }
     private void displayQuestion(QuestionBank questionBank) {
-        Question question = questionBank.getNextQuestion();
-        game_activity_textview_question.setText(question.getQuestion());
-        mAnswerButton1.setText(question.getmChoiceList().get(0));
-        mAnswerButton2.setText(question.getmChoiceList().get(1));
-        mAnswerButton3.setText(question.getmChoiceList().get(2));
-        mAnswerButton4.setText(question.getmChoiceList().get(3));
+        if (!(questionBank.getmNextQuestionIndex() ==  questionBank.getmQuestionList().size())) {
+            Toast.makeText(this, "INDEX" + questionBank.getmNextQuestionIndex(), Toast.LENGTH_SHORT).show();
+            Question question = questionBank.getQuestion(questionBank.getmNextQuestionIndex());
+            game_activity_textview_question.setText(question.getQuestion());
+            mAnswerButton1.setText(question.getmChoiceList().get(0));
+            mAnswerButton2.setText(question.getmChoiceList().get(1));
+            mAnswerButton3.setText(question.getmChoiceList().get(2));
+            mAnswerButton4.setText(question.getmChoiceList().get(3));
+        } else {
+            Toast.makeText(this, "Vous avez terminé le jeu", Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
     @Override

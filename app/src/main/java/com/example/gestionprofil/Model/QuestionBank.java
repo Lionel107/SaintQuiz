@@ -10,7 +10,18 @@ public class QuestionBank {
 
     }
     public Question getNextQuestion() {
+        return mQuestionList.get(mNextQuestionIndex++);
+    }
 
-        return mNextQuestionIndex < mQuestionList.size() ? mQuestionList.get(mNextQuestionIndex++) : null;
+    public Question getQuestion(int index) {
+        return mQuestionList.get(index);
+    }
+
+    public List<Question> getmQuestionList() {
+        return mQuestionList;
+    }
+
+    public int getmNextQuestionIndex() {
+        return mNextQuestionIndex;
     }
 }
