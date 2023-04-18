@@ -6,20 +6,39 @@
     android:layout_height="match_parent"
     tools:context=".Model.CoursActivity">
 
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Cours"
-    android:textSize="30sp"
-    android:gravity="center"
-    android:textColor="#000000"
-    android:background="#73B0CD"
-    android:layout_marginTop="16dp"
-    tools:ignore="MissingConstraints" />
-   <ScrollView
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-         android:text="La nutrition est l'étude des aliments et des nutriments qui les composent, et de la manière dont ils affectent notre santé. Il existe différents groupes alimentaires, chacun offrant des nutriments clés pour notre corps. La viande est un groupe d'aliments important pour fournir des protéines, qui sont essentielles pour la croissance et la réparation des tissus corporels. D'autres sources de protéines incluent les légumineuses, les noix et les graines.
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#73B0CD"
+        android:gravity="center"
+        android:text="Cours"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/buttonPlay"
+        android:layout_width="103dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="1dp"
+        android:backgroundTint="#73B0CD"
+        android:elevation="4dp"
+        android:text="Lecture"
+        android:textColor="#De7a22"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:layout_editor_absoluteX="309dp" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:paddingLeft="16dp"
+        android:paddingTop="200dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="64dp"
+        android:text="La nutrition est l'étude des aliments et des nutriments qui les composent, et de la manière dont ils affectent notre santé. Il existe différents groupes alimentaires, chacun offrant des nutriments clés pour notre corps. La viande est un groupe d'aliments important pour fournir des protéines, qui sont essentielles pour la croissance et la réparation des tissus corporels. D'autres sources de protéines incluent les légumineuses, les noix et les graines.
 
 Les produits laitiers sont une excellente source de calcium, un minéral important pour la construction et l'entretien des os et des dents. Les produits laitiers comprennent le lait, le fromage et le yaourt. Les personnes qui ne consomment pas de produits laitiers peuvent obtenir du calcium à partir d'autres sources telles que les légumes verts, les noix et les graines.
 
@@ -37,16 +56,12 @@ La viande est une source importante de fer, un minéral important pour la format
 
 Les noix et les graines sont une source de graisses insaturées, qui sont bénéfiques pour la santé cardiaque. Ils contiennent également des vitamines et des minéraux importants, tels que la vitamine E et le magnésium."
 
-       android:textSize="20sp"
-       android:textColor="#FFFFFF"
-       android:layout_marginTop="16dp"
-       tools:ignore="MissingConstraints"
-       android:paddingTop="64dp"
-         android:paddingBottom="64dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-
-       />
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="1dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
