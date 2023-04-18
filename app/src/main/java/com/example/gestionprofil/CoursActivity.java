@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.Locale;
+
 public class CoursActivity extends AppCompatActivity {
     private TextToSpeech textToSpeech;
     private boolean isPaused = true;
@@ -43,12 +45,19 @@ public class CoursActivity extends AppCompatActivity {
                 }
             }
         });
-
-
         initTextToSpeech();
     }
-    private void initTextToSpeech() {
 
+    private void initTextToSpeech() {
+        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status != TextToSpeech.ERROR) {
+                    textToSpeech.setLanguage(Locale.FRENCH);
+                }
+            }
+        });
     }
+
 
 }
